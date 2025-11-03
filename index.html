@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deniva - Premium Denim Tote</title>
+    <link rel="shortcut icon" href="logo deniva png tas.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
+            background-color: grey;
+            overflow-x: hidden;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(1, 19, 46, 0.738);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 25px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+        header .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+        nav ul li {
+            margin-left: 40px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #3498db;
+            transition: width 0.3s ease;
+        }
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        nav ul li a:hover {
+            color: #3498db;
+        }
+
+        /* Hero Section with Slider */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+        .slide.active {
+            opacity: 0.3;
+        }
+        .slide:nth-child(1) {
+            background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEitdERYM4owJXvxDGYnhcXzJ5evEwjrEIxNeZi51pQI6xwm5uR-Wjlzb5ECm0r9qpobQUIkv9QVOQBAsuACrtT1qTStsvsCFsHo6jn7HY6MZKNPHSCP_xr2AUkh8npuziPj9mB6Q0X3yWs0pyxfxAO9u93qY6pUqDYpTTheaCaTh4t7sg0zhIsIhA0bMA/w426-h640/DSC_0081%20(1).jpg=w469-h703-p-k-no-nu');
+        }
+        .slide:nth-child(2) {
+            background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYYDgykHLtnFqh7NArHlfEBz0gAsotuvwSr2XnCol5meFNrpyEkh0CsmS9FlcFN6cK1ZNEdVr6u79CR4JqJz7K2gc5RzkKg-RTGa9ULtP8RO16wrnTY-vkl6yFV_J4Xv61PIkytCAjSs4xPxFae_3cphtZhKgvRZAjvz5bwwgsUtI74zcJPofWcQPZ8w/s6000/DSC_0083.jpg');
+        }
+        .slide:nth-child(3) {
+            background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEijx3ygW24N2Qu97ZN5SVB3R-eSvtbi4ha2ZPAtDNZsN5pnChQAxQGMCV8h2kyR6zXUFQM7plR9cYjsKbf4SY69iWukSk1E5dFCod_OIWw6cWJGAQCgzYUX-hyYZB8diiP6KJPxUUSJ7WXPBi1TGw4HEzPUgwfMDJSphJEdDCjYtKyytb8BQ-kldx5rXA/s6000/DSC_0051.jpg');
+        }
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 24px;
+            padding: 15px 20px;
+            cursor: pointer;
+            z-index: 10;
+            transition: background 0.3s ease, transform 0.3s ease;
+            border-radius: 50%;
+            color: #000000;
+        }
+        .prev:hover, .next:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .prev {
+            left: 20px;
+        }
+        .next {
+            right: 20px;
+        }
+        .dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            z-index: 10;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .dot.active {
+            background-color: #fff;
+        }
+        .hero-content {
+            text-align: center;
+            max-width: 700px;
+            padding: 40px;
+            background-color: none;
+            border-radius: 20px;
+            box-shadow: none;
+            backdrop-filter: none;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 25px;
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            color: #ffffff;
+            font-weight: 400;
+        }
+        .btn {
+            display: inline-block;
+            padding: 18px 40px;
+            background: linear-gradient(135deg, #131931, #000000);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 16px;
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(52, 152, 219, 0.4);
+        }
+
+        /* Product Section */
+        .product {
+            padding: 120px 60px;
+            background-color: #fff;
+            text-align: center;
+        }
+        .product h2 {
+            font-size: 42px;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            transition: transform 0.3s ease;
+        }
+        .product img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Product Gallery Grid */
+        .product-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .product-gallery img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .product p {
+            font-size: 20px;
+            max-width: 900px;
+            margin: 0 auto 50px;
+            color: #7f8c8d;
+            font-weight: 400;
+        }
+        .features {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 60px;
+        }
+        .feature {
+            flex: 1;
+            min-width: 250px;
+            margin: 25px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        .feature h3 {
+            font-size: 26px;
+            margin-bottom: 15px;
+            color: #34495e;
+            font-weight: 600;
+        }
+        .feature p {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            color: #ecf0f1;
+            text-align: center;
+            padding: 30px;
+        }
+        footer p {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .price {
+    margin-top: 40px;
+    text-align: center;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.price h3 {
+    font-size: 36px;
+    color: #000;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #451c01, #000000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.price p {
+    font-size: 16px;
+    color: #000000;
+    font-weight: 400;
+}
+
+.brand-logo {
+    margin: 25px 0 5px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.brand-logo img {
+    width: 100px;
+    height: auto;
+    opacity: 0.9;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.brand-logo img:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.team-name {
+    text-align: center;
+    font-size: 14px;
+    color: #222;  /* warna teks netral */
+    margin-bottom: 15px;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.5px;
+    background: none !important; /* hapus semua latar */
+}
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 20px 30px;
+            }
+            nav ul li {
+                margin-left: 20px;
+            }
+            .hero h1 {
+                font-size: 40px;
+            }
+            .hero p {
+                font-size: 18px;
+            }
+            .hero-content {
+                padding: 30px;
+            }
+            .product {
+                padding: 80px 30px;
+            }
+            .product h2 {
+                font-size: 32px;
+            }
+            .features {
+                flex-direction: column;
+            }
+            .feature {
+                margin: 15px 0;
+            }
+            .prev, .next {
+                font-size: 20px;
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Deniva Totebag</div>
+        <nav>
+            <ul>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#product">Product</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="hero" class="hero">
+        <div class="slider">
+            <div class="slide active"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+        </div>
+        <button class="prev">&lt;</button>
+        <button class="next">&gt;</button>
+        <div class="dots">
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
+        </div>
+        <div class="hero-content">
+            <h1>Kenapa Deniva?</h1>
+            <p>Totebag Deniva hadir untuk kamu yang ingin tampil Stylish sekaligus Peduli Lingkungan. Karena kami percaya, Tren sejati adalah yang Ramah Bumi.</p>
+            <a href="#product" class="btn">Lihat Produk</a>
+        </div>
+    </section>
+
+    <section id="product" class="product">
+    <h2>Totebag Kami</h2>
+
+    <!-- Foto utama -->
+    <img src="DSC_0050.jpg" alt="Denim Totebag">
+    <p>Totebag Deniva hadir dengan gaya kasual yang ramah lingkungan, terbuat dari jeans bekas berkualitas yang diolah kembali menjadi tas modis dan fungsional. Setiap potongan denim memiliki tekstur dan warna unik, menjadikan setiap tas satu-satunya dan eksklusif.
+</p>
+
+    <!-- Galeri foto 7 gambar -->
+    <div class="product-gallery">
+    <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhd19D4jXFGxnB_Y4amc-8uEI-4f8syT2XlWuTfnWnI6Dy7v9nMbfpNdHGDh4Uy52VGKCkyfJPEXPnhZmSenXDpbsHFSPttna9CRvIZDSOaEH9K7lL76xkdf1pdzVk0iyOAoV57iDPgIWI8-uGU3qlzt0m8dNFoUe7FTWv9XHMNO0Dt_lUZDb3tE-wZDQ/s6000/DSC_0009%20(3).jpg" target="_blank">
+        <img src="1.jpg" alt="">
+    </a>
+    <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhHADaCVDJgQflUeWqFHImpr-BfMwJsFgjZ9XweKO6zZIvz1bL2sZg02eHKByg5GovQ-GcHtKXuMQBO35LiXXjog9NKmEgXPUXEkLG3wmiNbTGjgqveZiUcRP4PgmwvSRPYL7M75x1TIK_9xLXoV_oZcFIDA7beaH_5QWftzTx9YAI5VLsOHuP8m67jDQ/s6000/DSC_0055.jpg" target="_blank">
+        <img src="2.jpg" alt="">
+    </a>
+    <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEieE0eYQjXLURGG6w92PzyThxAaK4xB3o6sy_NlmWzfhH4quJU__bR2BuvOSSSRNtBtebbvXmp_OpeLkwglAZrb3sNWP1UgojcyJGqYsEUKSl1NB980Fan9GKpIz3MMkKTnQiGiz4SLgT_qdOUsBeRlsjkKHaolNq2sKOHsciPbvOXVUWrgMf1aP9-ryg/s6000/DSC_0058.jpg" target="_blank">
+        <img src="3.jpg" alt="">
+    </a>
+    <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjOMFnaJbD6D7yRUsuU1F1PlEccp6mVYmEKm1aTL-VsMvVAww2oVNcE7dFeYcQ5gPBm1iSDL3qXfEg0lPqJH3u4DhB89RBYXpA2u7kwYSMs-OnbwAsS4BYC059hUXLV1Ftbx3mUHyL1E8QCKXnLwrdSE4zySB-t8LYbf6bdJucrQTPFaNpyVCOi6evjHQ/s6000/DSC_0073%20(1).jpg" target="_blank">
+        <img src="4.jpg" alt="">
+    </a>
+    <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhyjB3lkQIrGHWywZEUKUdNGDYVfJrMvE39U9RS8vlLzOlta0REUbOyqr2z36lWpzqjOV4eQFnyq7IjWbCRBcE3c-a7VTeXIk4HNPT9CeyPrGXj6Vbk4vtsbbXFtsGylqqL35Qf9klg0a3a1aRWuwCEEGve9CjXSAa3D4kIFhaKyW0g_g_ryp3q7LsODA/s6000/DSC_0094.jpg" target="_blank">
+        <img src="5.jpg" alt="">
+    </a>
+    <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjf93BGPJSxF0DoYtQKqtz-_2ZW-Dxbcq0rf2fhUfuw6wBgxVY3MI4lgXf6a-vJQUFiVXSIRfyUiHNPCane1keJbQgxeWOEvqVcXNmUuHdROPU1KvsTeKwvPiPIglpngjhVQKHEdL99XETTyabWx6BTRZWQg9fMLISlAtFfu42HQHw4uUKFVAOsAjcstg/s6000/DSC_0106.jpg" target="_blank">
+        <img src="6.jpg" alt="">
+    </a>
+    <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzf8_6zosSJtZxvg4rlbficBk-LsOJZG2j52Cw0WZ_KC2ix_R7Ci24pqzWPUha6YuNfWMwLDaBg-PxtbSqJl2r9UcEBnnjR56qbugxVlU55fpyreCU0XwTREKM2h7yrEJhxG1EjIjXXPRte4Ay3LQcue-hrzCXW4-5LuGOZyaOZs193oE_stc4WtfZdA/s6000/DSC_0104.jpg" target="_blank">
+        <img src="7.jpg" alt="">
+    </a>
+    <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiQvcCSU2NGyoGL6mlDnQqEhPnhpakRmwNmsf8j1HMZfzHM1vN_QXJwJM2jMlPGdwC6IZYAgVA9GrqHMzrY9rYHpqyw7JO59jgnbKRu3WOBeNIuogtLRF1_Dim3PetJN93NFExoTG7o8FYn4Puq1iYpjm12W9GRCDnz-LRUKqyeZhP60VDm3M1vYCD2Yw/s6000/DSC_0111.jpg" target="_blank">
+        <img src="8.jpg" alt="">
+    </a>
+</div>
+
+       <div class="features">
+        <div class="feature">
+            <h3>Minimalis</h3>
+            <p>Desain sederhana namun berkarakter, elegan, dan timeless.</p>
+        </div>
+        <div class="feature">
+            <h3>Berkualitas</h3>
+            <p>Bahan premium yang nyaman, kuat, dan tahan lama.</p>
+        </div>
+        <div class="feature">
+            <h3>Seimbang</h3>
+            <p>Perpaduan kekuatan dan feminitas menciptakan gaya “gentle yet powerful".</p>
+        </div>
+    </div>
+
+    <div class="price">
+        <h3>Rp 90.000</h3>
+        <p>Buruan Pesan Sekarang!</p>
+    </div>
+
+    <a href="https://wa.me/qr/6MHWGSLNFS7CG1" target="_blank" class="btn">Buy Now</a>
+    <div class="brand-logo">
+    <img src="logo deniva png tas.png" alt="Logo Deniva">
+    </div>
+    <div class="team-name">
+    <p>Moses Juneri Manihuruk,
+        Rifki Okto Ramadhan,
+        M. Daffa Ksatria,
+        Alim Najuwa.
+    </p>
+</div>
+</section>
+
+
+
+    <footer id="contact">
+        <p>&copy; 2025 Totebag Jeans. Kelompok 7 Kewirausahaan Prodi Bisnis Digital UNJA. Contact us mosesjunerimanihuruk@gmail.com</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Slider functionality
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        let currentSlide = 0;
+        let slideInterval = setInterval(nextSlide, 4000); // Auto slide every 4 seconds
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        function resetInterval() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 4000);
+        }
+
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            resetInterval();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            resetInterval();
+        });
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+                resetInterval();
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.feature').forEach(feature => {
+            feature.style.opacity = '0';
+            feature.style.transform = 'translateY(30px)';
+            feature.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(feature);
+        });
+    </script>
+</body>
+</html>
